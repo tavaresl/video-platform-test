@@ -7,12 +7,16 @@ class UserController {
 
   create(req, res) {
     const userToCreate = req.body;
-    this.User.create(userToCreate)
+
+    return this.User.create(userToCreate)
       .then((user) => {
         res.status(HttpStatus.CREATED);
         res.json(user);
       })
-      .catch(() => res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR));
+      .catch((error) => {
+        console.log(error);
+        res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+      });
   }
 }
 

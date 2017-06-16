@@ -1,8 +1,9 @@
 import HttpStatus from 'http-status';
 
 describe('User integration test', () => {
+  const User = app.get('datasource').entities.User;
   const expectedCreatedUser = {
-    id: 1,
+    id: 2,
     firstName: 'User',
     lastName: 'Test',
     email: 'user@mail.com',
@@ -14,6 +15,21 @@ describe('User integration test', () => {
     lastName: 'Test',
     email: 'updated@mail.com',
   };
+
+  beforeEach((done) => {
+    User
+      .destroy({ where: {} })
+      .then(() => {
+        User.create({
+          firstName: 'Default',
+          lastName: 'User',
+          email: 'user@mail.com',
+          password: 'pass12345',
+        })
+        .then(() => done());
+      })
+      .catch(error => done(error));
+  });
 
   describe('Route /user', () => {
     const userToCreate = {
