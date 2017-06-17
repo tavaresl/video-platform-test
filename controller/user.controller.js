@@ -6,17 +6,50 @@ class UserController {
   }
 
   create(req, res) {
-    const userToCreate = req.body;
-
-    return this.User.create(userToCreate)
+    return this.User
+      .create(req.body)
       .then((user) => {
         res.status(HttpStatus.CREATED);
         res.json(user);
       })
-      .catch((error) => {
-        console.log(error);
-        res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-      });
+      .catch(() => res.sendStatus(HttpStatus.UNPROCESSABLE_ENTITY));
+  }
+
+  getAll(req, res) {
+    return this.User
+      .findAll()
+      .then((users) => {
+        res.status(HttpStatus.OK);
+        res.json(users);
+      })
+      .catch(() => res.sendStatus(HttpStatus.NOT_FOUND));
+  }
+
+  get(req, res) {
+    return this.User
+      .findOne(req.params)
+      .then((user) => {
+        res.status(HttpStatus.OK);
+        res.json(user);
+      })
+      .catch(() => res.sendStatus(HttpStatus.UNPROCESSABLE_ENTITY));
+  }
+
+  update(req, res) {
+    return this.User
+      .update(req.body, { where: req.params })
+      .then((rows) => {
+        res.status(HttpStatus.OK);
+        res.json(rows);
+      })
+      .catch(() => res.sendStatus(HttpStatus.UNPROCESSABLE_ENTITY));
+  }
+
+  delete(req, res) {
+    return this.User
+      .destroy({ where: req.params })
+      .then(() => res.sendStatus(HttpStatus.NO_CONTENT))
+      .catch(() => res.sendStatus(HttpStatus.UNPROCESSABLE_ENTITY));
   }
 }
 

@@ -12,6 +12,7 @@
     "it": true,
     "request": true,
     "expect": true,
-    "beforeEach": true
+    "beforeEach": true,
+    "afterEach": true
   }
 }
