@@ -9,6 +9,10 @@ const config = {
       underscore: false,
     },
   },
+  jwt: {
+    secret: 'JwT53cR3t@..',
+    session: { session: false },
+  },
 };
 
 export default config;

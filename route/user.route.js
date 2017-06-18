@@ -6,6 +6,7 @@ const userRoutes = (app) => {
   const userController = new UserController(app.getEntity('User'));
 
   app.route('/user')
+    .all(app.get('auth').authenticate())
     .post((req, res) => {
       userController
         .create(req.body)
@@ -26,6 +27,7 @@ const userRoutes = (app) => {
     });
 
   app.route('/user/:id')
+    .all(app.get('auth').authenticate())
     .get((req, res) => {
       userController
         .get(req.params)

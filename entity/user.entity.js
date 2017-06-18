@@ -1,3 +1,5 @@
+import bcrypt from 'bcrypt';
+
 const userEntity = (sequelize, DataType) => {
   const UserEntity = sequelize.define('User', {
     id: {
@@ -33,7 +35,15 @@ const userEntity = (sequelize, DataType) => {
         notEmpty: true,
       },
     },
-  });
+  // },
+  //   {
+  //     hooks: {
+  //       beforeCreate: (user) => {
+  //         const salt = bcrypt.genSaltSync();
+  //         user.set('password', bcrypt.hashSync(user.password, salt));
+  //       },
+  //     },
+    });
 
   return UserEntity;
 };
