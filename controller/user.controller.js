@@ -1,55 +1,26 @@
-import HttpStatus from 'http-status';
-
 class UserController {
-  constructor(app) {
-    this.User = app.get('datasource').entities.User;
+  constructor(User) {
+    this.User = User;
   }
 
-  create(req, res) {
-    return this.User
-      .create(req.body)
-      .then((user) => {
-        res.status(HttpStatus.CREATED);
-        res.json(user);
-      })
-      .catch(() => res.sendStatus(HttpStatus.UNPROCESSABLE_ENTITY));
+  create(user) {
+    return this.User.create(user);
   }
 
-  getAll(req, res) {
-    return this.User
-      .findAll()
-      .then((users) => {
-        res.status(HttpStatus.OK);
-        res.json(users);
-      })
-      .catch(() => res.sendStatus(HttpStatus.NOT_FOUND));
+  getAll() {
+    return this.User.findAll({});
   }
 
-  get(req, res) {
-    return this.User
-      .findOne(req.params)
-      .then((user) => {
-        res.status(HttpStatus.OK);
-        res.json(user);
-      })
-      .catch(() => res.sendStatus(HttpStatus.UNPROCESSABLE_ENTITY));
+  get(params) {
+    return this.User.findOne({ where: params });
   }
 
-  update(req, res) {
-    return this.User
-      .update(req.body, { where: req.params })
-      .then((rows) => {
-        res.status(HttpStatus.OK);
-        res.json(rows);
-      })
-      .catch(() => res.sendStatus(HttpStatus.UNPROCESSABLE_ENTITY));
+  update(user, params) {
+    return this.User.update(user, { where: params });
   }
 
-  delete(req, res) {
-    return this.User
-      .destroy({ where: req.params })
-      .then(() => res.sendStatus(HttpStatus.NO_CONTENT))
-      .catch(() => res.sendStatus(HttpStatus.UNPROCESSABLE_ENTITY));
+  delete(params) {
+    return this.User.destroy({ where: params });
   }
 }
 

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "babel-node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run test-unit && npm run test-integration",
     "test-unit": "MODE=test mocha --opts specs/unit/mocha.opts specs/unit/**/*.spec.js || true",
     "test-integration": "MODE=test mocha --opts specs/integration/mocha.opts specs/integration/**/*.spec.js || true"
   },
@@ -29,6 +29,7 @@
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.1.0",
     "mocha": "^3.4.2",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "testdouble": "^3.0.0"
   }
 }

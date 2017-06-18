@@ -15,6 +15,8 @@ app.set('port', 7000);
 app.set('config', config);
 app.set('datasource', datasource(app));
 
+app.getEntity = entity => app.get('datasource').entities[entity];
+
 authRoutes(app);
 userRoutes(app);
 
