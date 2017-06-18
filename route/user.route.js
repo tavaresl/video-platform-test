@@ -28,6 +28,7 @@ const userRoutes = (app) => {
     });
 
   app.route('/user')
+    .all(app.get('auth').authenticate())
     .post((req, res) => {
       userController
         .create(req.body)
