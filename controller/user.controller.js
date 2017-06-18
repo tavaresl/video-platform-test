@@ -22,10 +22,6 @@ class UserController {
   delete(params) {
     return this.User.destroy({ where: params });
   }
-
-  authenticate(user) {
-    return this.User.findById(user.id);
-  }
 }
 
 export default UserController;
