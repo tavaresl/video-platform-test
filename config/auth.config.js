@@ -1,15 +1,14 @@
 import passport from 'passport';
-import { Strategy, ExtractJwt } from 'passport-jwt';
+import { Strategy, ExtractJwt as Extract } from 'passport-jwt';
 
 const authConfig = (app) => {
-  const User = app.getEntity('User');
-  const opts = {
+  const User = app.get('datasource').entities.User;
+  const options = {
+    secretOrKey: app.get('config').jwt.secret,
+    jwtFromRequest: Extract.fromAuthHeader(),
   };
 
-  opts.secretOrKey = app.get('config').jwt.secret;
-  opts.jwtFromRequest = ExtractJwt.fromAuthHeader();
-
-  const strategy = new Strategy(opts, (payload, done) => {
+  const verify = (payload, done) => {
     User
       .findById(payload.id)
       .then((user) => {
@@ -25,13 +24,15 @@ const authConfig = (app) => {
         });
       })
       .catch(error => done(error, null));
-  });
+  };
+
+  const strategy = new Strategy(options, verify);
 
   passport.use(strategy);
 
   return {
-    initialize: passport.initialize(),
-    authenticate: passport.authenticate('jwt', app.get('config').jwt.session),
+    initialize: () => passport.initialize(),
+    authenticate: () => passport.authenticate('jwt', app.get('config').jwt.session),
   };
 };
 

@@ -36,8 +36,6 @@ const getDatabase = (app) => {
     entities: loadEntities(sequelize),
   };
 
-  app.getEntity = entity => database.entities[entity];
-
   sequelize.sync().done(() => database);
 
   return database;

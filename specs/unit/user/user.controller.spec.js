@@ -1,9 +1,12 @@
+import jwt from 'jwt-simple';
+
 import UserController from '../../../controller/user.controller';
 
 describe('UserController unit tests', () => {
   const User = app.getEntity('User');
   const FakeUser = {
     create: td.function(),
+    findById: td.function(),
     findOne: td.function(),
     findAll: td.function(),
     update: td.function(),
@@ -28,7 +31,7 @@ describe('UserController unit tests', () => {
         User
           .create(defaultUser)
           .then(() => done());
-      })
+      });
   });
 
   beforeEach(() => {

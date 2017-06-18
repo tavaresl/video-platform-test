@@ -1,12 +1,33 @@
 import HttpStatus from 'http-status';
+import jwt from 'jwt-simple';
 
 import UserController from '../controller/user.controller';
 
 const userRoutes = (app) => {
   const userController = new UserController(app.getEntity('User'));
 
+  app.route('/user/authenticate')
+    .post((req, res) => {
+      const email = req.body.email;
+      const password = req.body.password;
+
+      userController
+        .get({ email })
+        .then((user) => {
+          const User = app.getEntity('User');
+          if (User.hasSamePassword(user.password, password)) {
+            const token = jwt.encode(user, app.get('config').jwt.secret);
+
+            res.status(HttpStatus.OK);
+            res.json({ token });
+          } else {
+            res.sendStatus(HttpStatus.UNAUTHORIZED);
+          }
+        })
+        .catch(() => res.sendStatus(HttpStatus.UNAUTHORIZED));
+    });
+
   app.route('/user')
-    .all(app.get('auth').authenticate())
     .post((req, res) => {
       userController
         .create(req.body)

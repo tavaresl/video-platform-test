@@ -4,8 +4,7 @@ import HttpStatus from 'http-status';
 
 import config from './config/app.config';
 import datasource from './config/datasource.config';
-import authConfig from './auth';
-import authRoutes from './route/auth.route';
+import authConfig from './config/auth.config';
 import userRoutes from './route/user.route';
 
 const app = express();
@@ -15,12 +14,11 @@ app.set('config', config);
 app.set('datasource', datasource(app));
 app.set('auth', authConfig(app));
 
-app.getEntity = entity => app.get('datasource').entities[entity];
-
 app.use(bodyParser.json());
 app.use(app.get('auth').initialize());
 
-authRoutes(app);
+app.getEntity = entity => app.get('datasource').entities[entity];
+
 userRoutes(app);
 
 app.get('/', (req, res) => {

@@ -1,7 +1,7 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt-nodejs';
 
 const userEntity = (sequelize, DataType) => {
-  const UserEntity = sequelize.define('User', {
+  const schema = {
     id: {
       type: DataType.INTEGER,
       primaryKey: true,
@@ -35,15 +35,22 @@ const userEntity = (sequelize, DataType) => {
         notEmpty: true,
       },
     },
-  // },
-  //   {
-  //     hooks: {
-  //       beforeCreate: (user) => {
-  //         const salt = bcrypt.genSaltSync();
-  //         user.set('password', bcrypt.hashSync(user.password, salt));
-  //       },
-  //     },
-    });
+  };
+
+  const options = {
+    hooks: {
+      beforeCreate: (user) => {
+        const salt = bcrypt.genSaltSync();
+        user.set('password', bcrypt.hashSync(user.password, salt));
+      },
+    },
+  };
+
+  const UserEntity = sequelize.define('User', schema, options);
+
+  UserEntity.hasSamePassword = (encodedPassword, password) => {
+    return bcrypt.compareSync(password, encodedPassword);
+  };
 
   return UserEntity;
 };
