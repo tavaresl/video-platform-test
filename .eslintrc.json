@@ -12,8 +12,10 @@
     "it": true,
     "request": true,
     "expect": true,
+    "before": true,
     "beforeEach": true,
     "afterEach": true,
+    "after": true,
     "app": true,
     "td": true
   }
