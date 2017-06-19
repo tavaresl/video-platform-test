@@ -2,7 +2,7 @@ import passport from 'passport';
 import { Strategy, ExtractJwt as Extract } from 'passport-jwt';
 
 const authConfig = (app) => {
-  const User = app.get('datasource').entities.User;
+  const User = app.get('datasource').models.User;
   const options = {
     secretOrKey: app.get('config').jwt.secret,
     jwtFromRequest: Extract.fromAuthHeader(),

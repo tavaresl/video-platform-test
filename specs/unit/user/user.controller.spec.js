@@ -3,7 +3,7 @@ import jwt from 'jwt-simple';
 import UserController from '../../../controller/user.controller';
 
 describe('UserController unit tests', () => {
-  const User = app.getEntity('User');
+  const User = app.getModel('User');
   const FakeUser = {
     create: td.function(),
     findById: td.function(),
@@ -43,7 +43,7 @@ describe('UserController unit tests', () => {
   });
 
   after((done) => {
-    app.getEntity('User')
+    app.getModel('User')
       .destroy({ where: {} })
       .then(() => done());
   });

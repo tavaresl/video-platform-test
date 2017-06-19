@@ -1,4 +1,4 @@
-const categoryEntity = (sequelize, DataType) => {
+const categorymodel = (sequelize, DataType) => {
   const schema = {
     id: {
       type: DataType.INTEGER,
@@ -19,9 +19,9 @@ const categoryEntity = (sequelize, DataType) => {
     },
   };
 
-  const CategoryEntity = sequelize.define('Category', schema);
+  const Categorymodel = sequelize.define('Category', schema);
 
-  return CategoryEntity;
+  return Categorymodel;
 };
 
-export default categoryEntity;
+export default categorymodel;

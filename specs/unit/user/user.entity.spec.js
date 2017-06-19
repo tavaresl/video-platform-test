@@ -1,5 +1,5 @@
-describe('User entity unit tests', () => {
-  const User = app.getEntity('User');
+describe('User model unit tests', () => {
+  const User = app.getModel('User');
   const defaultUser = {
     id: 1,
     firstName: 'Default',

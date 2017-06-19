@@ -4,7 +4,7 @@ import jwt from 'jwt-simple';
 import UserController from '../controller/user.controller';
 
 const userRoutes = (app) => {
-  const userController = new UserController(app.getEntity('User'));
+  const userController = new UserController(app.getModel('User'));
 
   app.route('/user/authenticate')
     .post((req, res) => {
@@ -14,7 +14,7 @@ const userRoutes = (app) => {
       userController
         .get({ email })
         .then((user) => {
-          const User = app.getEntity('User');
+          const User = app.getModel('User');
           if (User.hasSamePassword(user.password, password)) {
             const token = jwt.encode(user, app.get('config').jwt.secret);
 
@@ -36,7 +36,7 @@ const userRoutes = (app) => {
           res.status(HttpStatus.CREATED);
           res.json(user);
         })
-        .catch(() => res.sendStatus(HttpStatus.UNPROCESSABLE_ENTITY));
+        .catch(() => res.sendStatus(HttpStatus.UNPROCESSABLE_model));
     })
     .get((req, res) => {
       userController
@@ -57,7 +57,7 @@ const userRoutes = (app) => {
           res.status(HttpStatus.OK);
           res.json(user);
         })
-        .catch(() => res.sendStatus(HttpStatus.UNPROCESSABLE_ENTITY));
+        .catch(() => res.sendStatus(HttpStatus.UNPROCESSABLE_model));
     })
     .put((req, res) => {
       userController
@@ -66,13 +66,13 @@ const userRoutes = (app) => {
           res.status(HttpStatus.OK);
           res.json(rows);
         })
-        .catch(() => res.sendStatus(HttpStatus.UNPROCESSABLE_ENTITY));
+        .catch(() => res.sendStatus(HttpStatus.UNPROCESSABLE_model));
     })
     .delete((req, res) => {
       userController
         .delete(req.params)
         .then(() => res.sendStatus(HttpStatus.NO_CONTENT))
-        .catch(() => res.sendStatus(HttpStatus.UNPROCESSABLE_ENTITY));
+        .catch(() => res.sendStatus(HttpStatus.UNPROCESSABLE_model));
     });
 };
 

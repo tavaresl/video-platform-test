@@ -1,5 +1,5 @@
-describe('Category entity tests', () => {
-  const Category = app.getEntity('Category');
+describe('Category model tests', () => {
+  const Category = app.getModel('Category');
   const defaultCategory = {
     id: 1,
     name: 'Category Default',

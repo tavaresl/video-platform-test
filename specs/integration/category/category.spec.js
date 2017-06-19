@@ -1,8 +1,8 @@
 import HttpStatus from 'http-status';
 
 describe('Category routes unit tests', () => {
-  const User = app.getEntity('User');
-  const Category = app.getEntity('Category');
+  const User = app.getModel('User');
+  const Category = app.getModel('Category');
   const defaultCategory = {
     id: 1,
     name: 'Default Category',

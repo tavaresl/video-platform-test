@@ -3,7 +3,7 @@ import HttpStatus from 'http-status';
 import CategoryController from '../controller/category.controller';
 
 const categoryRoutes = (app) => {
-  const categoryController = new CategoryController(app.getEntity('Category'));
+  const categoryController = new CategoryController(app.getModel('Category'));
 
   app.route('/category')
     .all(app.get('auth').authenticate())
@@ -14,7 +14,7 @@ const categoryRoutes = (app) => {
           res.status(HttpStatus.OK);
           res.json(category);
         })
-        .catch(() => res.sendStatus(HttpStatus.UNPROCESSABLE_ENTITY));
+        .catch(() => res.sendStatus(HttpStatus.UNPROCESSABLE_model));
     });
 };
 

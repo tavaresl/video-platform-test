@@ -18,7 +18,7 @@ app.set('auth', authConfig(app));
 app.use(bodyParser.json());
 app.use(app.get('auth').initialize());
 
-app.getEntity = entity => app.get('datasource').entities[entity];
+app.getModel = model => app.get('datasource').models[model];
 
 userRoutes(app);
 categoryRoutes(app);

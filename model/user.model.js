@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt-nodejs';
 
-const userEntity = (sequelize, DataType) => {
+const usermodel = (sequelize, DataType) => {
   const schema = {
     id: {
       type: DataType.INTEGER,
@@ -46,13 +46,13 @@ const userEntity = (sequelize, DataType) => {
     },
   };
 
-  const UserEntity = sequelize.define('User', schema, options);
+  const Usermodel = sequelize.define('User', schema, options);
 
-  UserEntity.hasSamePassword = (encodedPassword, password) => {
+  Usermodel.hasSamePassword = (encodedPassword, password) => {
     return bcrypt.compareSync(password, encodedPassword);
   };
 
-  return UserEntity;
+  return Usermodel;
 };
 
-export default userEntity;
+export default usermodel;

@@ -2,7 +2,7 @@ import HttpStatus from 'http-status';
 import jwt from 'jwt-simple';
 
 describe('User integration test', () => {
-  const User = app.get('datasource').entities.User;
+  const User = app.get('datasource').models.User;
 
   const defaultUser = {
     id: 1,

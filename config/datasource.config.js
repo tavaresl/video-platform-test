@@ -4,17 +4,17 @@ import Sequelize from 'sequelize';
 
 let database = null;
 
-const loadEntities = (sequelize) => {
-  const dir = path.join(__dirname, '../entity');
-  const entities = [];
+const loadmodels = (sequelize) => {
+  const dir = path.join(__dirname, '../model');
+  const models = [];
 
   fs.readdirSync(dir).forEach((file) => {
-    const entityDir = path.join(dir, file);
-    const entity = sequelize.import(entityDir);
-    entities[entity.name] = entity;
+    const modelDir = path.join(dir, file);
+    const model = sequelize.import(modelDir);
+    models[model.name] = model;
   });
 
-  return entities;
+  return models;
 };
 
 const getDatabase = (app) => {
@@ -33,7 +33,7 @@ const getDatabase = (app) => {
   database = {
     sequelize,
     Sequelize,
-    entities: loadEntities(sequelize),
+    models: loadmodels(sequelize),
   };
 
   sequelize.sync().done(() => database);
