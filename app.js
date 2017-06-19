@@ -6,6 +6,7 @@ import config from './config/app.config';
 import datasource from './config/datasource.config';
 import authConfig from './config/auth.config';
 import userRoutes from './route/user.route';
+import categoryRoutes from './route/category.route';
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(app.get('auth').initialize());
 app.getEntity = entity => app.get('datasource').entities[entity];
 
 userRoutes(app);
+categoryRoutes(app);
 
 app.get('/', (req, res) => {
   res.status(HttpStatus.OK);
