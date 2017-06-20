@@ -34,7 +34,7 @@ describe('User integration test', () => {
       password: 'userpassword',
     };
 
-    it('should create a valid user', (done) => {
+    it('POST: should create a valid user', (done) => {
       request
         .post('/user')
         .set('Authorization', `JWT ${token}`)
@@ -48,7 +48,7 @@ describe('User integration test', () => {
         });
     });
 
-    it('should the list of registered users', (done) => {
+    it('GET: should the list of registered users', (done) => {
       request
         .get('/user')
         .set('Authorization', `JWT ${token}`)
@@ -63,7 +63,7 @@ describe('User integration test', () => {
   });
 
   describe('Route /user/{id}', () => {
-    it('should return the user with the given id', (done) => {
+    it('GET: should return the user with the given id', (done) => {
       request
         .get('/user/1')
         .set('Authorization', `JWT ${token}`)
@@ -76,7 +76,7 @@ describe('User integration test', () => {
         });
     });
 
-    it('should update the user with the given id', (done) => {
+    it('PUT: should update the user with the given id', (done) => {
       const update = {
         firstName: 'User',
         lastName: 'Updated',
@@ -94,7 +94,7 @@ describe('User integration test', () => {
         });
     });
 
-    it('should delete the user with the given id', (done) => {
+    it('DELETE: should delete the user with the given id', (done) => {
       request
         .delete('/user/1')
         .set('Authorization', `JWT ${token}`)
@@ -106,7 +106,7 @@ describe('User integration test', () => {
   });
 
   describe('Route /user/authenticate', () => {
-    it('should authenticate a valid user', (done) => {
+    it('POST: should authenticate a valid user', (done) => {
       const payload = {
         email: defaultUser.email,
         password: defaultUser.password,
@@ -121,7 +121,7 @@ describe('User integration test', () => {
         });
     });
 
-    it('should not authenticate an invalid user', (done) => {
+    it('POST: should not authenticate an invalid user', (done) => {
       const payload = {
         email: 'invaliduser@mail.com',
         password: 'invalidpassword',
