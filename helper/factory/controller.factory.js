@@ -7,44 +7,41 @@ const controllerFactory = model => ({
     model
       .create(req.body)
       .then((modelCreated) => {
-        res.status(HttpStatus.OK);
-        res.json(modelCreated);
+        res.status(HttpStatus.OK).json(modelCreated);
       })
-      .catch(error => next(error));
+      .catch(next);
   },
   getAll: (req, res, next) => {
     model
       .findAll()
       .then((modelList) => {
-        res.status(HttpStatus.OK);
-        res.json(modelList);
+        res.status(HttpStatus.OK).json(modelList);
       })
-      .catch(error => next(error));
+      .catch(next);
   },
   getBy: (req, res, next) => {
     model
       .findOne({ where: req.params })
       .then((modelFound) => {
-        res.status(HttpStatus.OK);
-        res.json(modelFound);
+        res.status(HttpStatus.OK).json(modelFound);
       })
-      .catch(error => next(error));
+      .catch(next);
   },
   update: (req, res, next) => {
     model
       .update(req.body, { where: req.params })
       .then(() => {
-        res.sendStatus(HttpStatus.OK);
+        res.status(HttpStatus.NO_CONTENT).send();
       })
-      .catch(error => next(error));
+      .catch(next);
   },
   remove: (req, res, next) => {
     model
       .destroy({ where: req.params })
       .then(() => {
-        res.sendStatus(HttpStatus.OK);
+        res.status(HttpStatus.NO_CONTENT).send();
       })
-      .catch(error => next(error));
+      .catch(next);
   },
 });
 
